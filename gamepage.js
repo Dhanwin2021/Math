@@ -1,0 +1,84 @@
+player_name1 = localStorage.getItem("player1_name");
+player_name2 = localStorage.getItem("player2_name");
+
+
+
+player_score1 = 0;
+
+player_score2 = 0;
+
+question_turn="player_name1";
+answer_turn="player_name2";
+
+player_name1=document.getElementById("player1_name").innerHTML= player_name1+";";
+
+player_name2=document.getElementById("player2_name").innerHTML = player_name2+";";
+
+player_score1=document.getElementById("player1_score").innerHTML = player_score1+";";
+
+player_score2=document.getElementById("player2_score").innerHTML = player_score2+";";
+
+document.getElementById("player_question").innerHTML = "Player Who Asks - " + player_name1+";";
+
+document.getElementById("player_answer").innerHTML = "Player Who Answers - " + player_name2+";";
+
+
+
+function send () {
+
+    number1 = document.getElementById("number1").value;
+
+    number2 = document.getElementById("number2").value;
+
+
+    //YEAH!//
+
+    var question_number = '<h4 id="display_number">' + number1 + "X" + number2 + '</h4>';
+
+    var input_box = '<br> Answer : <input type="text" id="input_box" placeholder="Enter Your Answer" style="width:40%;">';
+
+    var check_button = '<br><br> <button type="button" id="check_button" onclick="check();" class="btn btn-info">Check</button>';
+
+    var row = question_number + input_box + check_button;
+
+    document.getElementById("output").innerHTML = row;
+
+    number1=document.getElementById("number1").value = "";
+
+    number2=document.getElementById("number2").value = "";
+
+}
+
+function check(){
+    answer=number1*number2;
+    get_answer=document.getElementById("input_box").value;
+    console.log("Answer - "+answer);
+    if(get_answer==answer){
+        if(answer_turn=="player_name1"){
+            update_player_score1=player_score1+1;
+            document.getElementById("player1_score").innerHTML=update_player_score1;
+        }
+        else{
+            update_player_score2=player_score2+1;
+            document.getElementById("player2_score").innerHTML=update_player_score2;
+        }
+    }
+    if(question_turn=="player_name1"){
+        question_turn="player_name2"
+        document.getElementById("player_question").innerHTML="Question Turn - "+player_name2;
+    }
+    else{
+        question_turn="player_name1"
+        document.getElementById("player_question").innerHTML="Question Turn - "+player_name1; 
+    }
+
+    if(answer_turn=="player_name1"){
+        answer_turn="player_name2"
+        document.getElementById("player_answer").innerHTML="Answer Turn - "+player_name2;
+    }
+    else{
+        answer_turn="player_name1"
+        document.getElementById("player_answer").innerHTML="Answer Turn - "+player_name1;
+    }
+    document.getElementById("output").innerHTML="";
+}
